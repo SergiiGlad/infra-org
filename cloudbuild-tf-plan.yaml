@@ -13,26 +13,17 @@
 # limitations under the License.
 
 timeout: 1200s
-steps:
-- name: gcr.io/cloud-builders/terraform
-  entrypoint: /bin/bash
-  args:
-  - -c
-  - |
-    gcloud config set auth/impersonate_service_account ${_TF_SA_EMAIL}
-- name: gcr.io/cloud-builders/terraform
+
+- name: registry.hub.docker.com/hashicorp/terraform
   args:
   - init
   - -input=false
-- name: gcr.io/cloud-builders/terraform
+- name: registry.hub.docker.com/hashicorp/terraform
   args:
   - validate
-- name: gcr.io/cloud-builders/terraform
+- name: registry.hub.docker.com/hashicorp/terraform
   args:
   - plan
   - -input=false
   - -out=tfplan
-artifacts:
-  objects:
-    location: 'gs://${_ARTIFACT_BUCKET_NAME}/terraform/cloudbuild/plan/$BUILD_ID'
-    paths: ['cloudbuild-tf-plan.yaml', 'tfplan']
+
