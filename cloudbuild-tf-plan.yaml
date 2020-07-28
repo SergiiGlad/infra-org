@@ -13,7 +13,7 @@
 # limitations under the License.
 
 timeout: 1200s
-
+steps:
 - name: registry.hub.docker.com/hashicorp/terraform
   args:
   - init
